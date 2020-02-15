@@ -62,12 +62,24 @@ const App = props => {
         });
     };
 
+    // It must be in the render object if it class base
+    const style = {
+        backgroundColor: "white",
+        font: "inherit",
+        border: "1px solid blue",
+        padding: "8px",
+        cursor: "pointer"
+    };
+
     return (
         <div className="App">
             <h1>Hi, I'm a React App</h1>
             <p>This is really working!</p>
             {/* () => inefficient way to call function handler */}
-            <button onClick={() => switchNameHandler("Maximilian!!")}>
+            <button
+                onClick={() => switchNameHandler("Maximilian!!")}
+                style={style}
+            >
                 Switch Name
             </button>
             <Person
