@@ -22,7 +22,7 @@ const App = props => {
 
     const [otherState, setOtherState] = useState("some other value");
 
-    console.log(personsState, otherState);
+    // console.log(personsState, otherState);
 
     const switchNameHandler = newName => {
         setPersonsState({
@@ -33,6 +33,25 @@ const App = props => {
                 },
                 {
                     name: "Manu",
+                    age: 29
+                },
+                {
+                    name: "Stephanie",
+                    age: 27
+                }
+            ]
+        });
+    };
+
+    const nameChangeHandler = e => {
+        setPersonsState({
+            persons: [
+                {
+                    name: "max",
+                    age: 28
+                },
+                {
+                    name: e.target.value,
                     age: 29
                 },
                 {
@@ -60,6 +79,7 @@ const App = props => {
                 name={personsState.persons[1].name}
                 age={personsState.persons[1].age}
                 click={switchNameHandler.bind(this, "Max!")}
+                changed={nameChangeHandler}
             >
                 My Hobbies: Racing
             </Person>
