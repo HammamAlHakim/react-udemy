@@ -60,11 +60,13 @@ class App extends Component {
 
     render() {
         const style = {
-            backgroundColor: "white",
+            backgroundColor: "green",
+            color: "white",
             font: "inherit",
             border: "1px solid blue",
             padding: "8px",
-            cursor: "pointer"
+            cursor: "pointer",
+            transition: ".3s"
         };
 
         let persons = null;
@@ -87,20 +89,23 @@ class App extends Component {
                     })}
                 </div>
             );
+
+            style.backgroundColor = "red";
         }
 
         return (
             <div className="App">
                 <h1>Hi, I'm a React App</h1>
                 <p>This is really working!</p>
-                {/* () => inefficient way to call function handler */}
                 <button onClick={this._togglePersonHandler} style={style}>
                     Toggle Persons
                 </button>
                 {persons}
-                {/* .bind(this, arg) is an efficient way to call function */}
             </div>
         );
+        // IMPORTANT NOTE
+        // () => inefficient way to call function handler
+        // .bind(this, arg) is an efficient way to call function
     }
 }
 
