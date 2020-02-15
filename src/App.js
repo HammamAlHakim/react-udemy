@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
@@ -20,25 +20,6 @@ class App extends Component {
         ],
         otherState: "some other state",
         showPerson: false
-    };
-
-    _switchNameHandler = newName => {
-        this.setState({
-            persons: [
-                {
-                    name: newName,
-                    age: 28
-                },
-                {
-                    name: "Manu",
-                    age: 29
-                },
-                {
-                    name: "Stephanie",
-                    age: 27
-                }
-            ]
-        });
     };
 
     _nameChangeHandler = e => {
@@ -67,6 +48,12 @@ class App extends Component {
         });
     };
 
+    _deletePersonHandler = personIndex => {
+        const persons = this.state.persons;
+        persons.splice(persons, 1);
+        this.setState({ persons: persons });
+    };
+
     render() {
         const style = {
             backgroundColor: "white",
@@ -81,22 +68,15 @@ class App extends Component {
         if (this.state.showPerson) {
             persons = (
                 <div>
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}
-                    />
-                    <Person
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-                        click={this._switchNameHandler.bind(this, "Max!")}
-                        changed={this._nameChangeHandler}
-                    >
-                        My Hobbies: Racing
-                    </Person>
-                    <Person
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age}
-                    />
+                    {this.state.persons.map((person, index) => {
+                        return (
+                            <Person
+                                click={() => this._deletePersonHandler(index)}
+                                name={person.name}
+                                age={person.age}
+                            />
+                        );
+                    })}
                 </div>
             );
         }
@@ -110,6 +90,7 @@ class App extends Component {
                     Toggle Persons
                 </button>
                 {persons}
+                {/* .bind(this, arg) is an efficient way to call function */}
             </div>
         );
     }
