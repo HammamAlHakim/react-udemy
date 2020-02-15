@@ -24,11 +24,11 @@ const App = props => {
 
     console.log(personsState, otherState);
 
-    const switchNameHandler = () => {
+    const switchNameHandler = newName => {
         setPersonsState({
             persons: [
                 {
-                    name: "Maximilian",
+                    name: newName,
                     age: 28
                 },
                 {
@@ -47,14 +47,19 @@ const App = props => {
         <div className="App">
             <h1>Hi, I'm a React App</h1>
             <p>This is really working!</p>
-            <button onClick={switchNameHandler}>Switch Name</button>
+            {/* () => inefficient way to call function handler */}
+            <button onClick={() => switchNameHandler("Maximilian!!")}>
+                Switch Name
+            </button>
             <Person
                 name={personsState.persons[0].name}
                 age={personsState.persons[0].age}
             />
+            {/* .bind(this, arg) is an efficient way to call function */}
             <Person
                 name={personsState.persons[1].name}
                 age={personsState.persons[1].age}
+                click={switchNameHandler.bind(this, "Max!")}
             >
                 My Hobbies: Racing
             </Person>
