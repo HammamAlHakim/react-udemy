@@ -4,7 +4,7 @@ import "./App.css";
 import Person from "./Person/Person";
 
 const StyledButton = styled.button`
-    background-color: green;
+    background-color: ${props => (props.alt ? "red" : "green")};
     color: white;
     font: inherit;
     border: 1px solid blue;
@@ -13,7 +13,7 @@ const StyledButton = styled.button`
     transition: 0.3s;
 
     &:hover {
-        background-color: lightgreen;
+        background-color: ${props => (props.alt ? "salmon" : "lightgreen")};
         color: black;
     }
 `;
@@ -38,7 +38,7 @@ class App extends Component {
             }
         ],
         otherState: "some other state",
-        showPerson: false
+        showPersons: false
     };
 
     _nameChangeHandler = (e, id) => {
@@ -61,9 +61,9 @@ class App extends Component {
     };
 
     _togglePersonHandler = () => {
-        const doesShow = this.state.showPerson;
+        const doesShow = this.state.showPersons;
         this.setState({
-            showPerson: !doesShow
+            showPersons: !doesShow
         });
     };
 
@@ -75,11 +75,9 @@ class App extends Component {
     };
 
     render() {
-        const style = {};
-
         let persons = null;
 
-        if (this.state.showPerson) {
+        if (this.state.showPersons) {
             persons = (
                 <div>
                     {this.state.persons.map((person, index) => {
@@ -97,12 +95,6 @@ class App extends Component {
                     })}
                 </div>
             );
-
-            style.backgroundColor = "red";
-            style[":hover"] = {
-                backgroundColor: "salmon",
-                color: "black"
-            };
         }
 
         const classes = [];
@@ -117,7 +109,10 @@ class App extends Component {
             <div className="App">
                 <h1>Hi, I'm a React App</h1>
                 <p className={classes.join(" ")}>This is really working!</p>
-                <StyledButton onClick={this._togglePersonHandler}>
+                <StyledButton
+                    alt={this.state.showPersons}
+                    onClick={this._togglePersonHandler}
+                >
                     Toggle Persons
                 </StyledButton>
                 {persons}
