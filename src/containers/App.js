@@ -27,7 +27,7 @@ class App extends Component {
         showPersons: false
     };
 
-    _nameChangeHandler = (e, id) => {
+    _NameChangeHandler = (e, id) => {
         const personIndex = this.state.persons.findIndex(p => {
             return p.id === id;
         });
@@ -45,14 +45,14 @@ class App extends Component {
         });
     };
 
-    _togglePersonHandler = () => {
+    _TogglePersonHandler = () => {
         const doesShow = this.state.showPersons;
         this.setState({
             showPersons: !doesShow
         });
     };
 
-    _deletePersonHandler = personIndex => {
+    _DeletePersonHandler = personIndex => {
         // const persons = this.state.persons.slice();
         const persons = [...this.state.persons];
         persons.splice(personIndex, 1);
@@ -66,8 +66,8 @@ class App extends Component {
             persons = (
                 <Persons
                     persons={this.state.persons}
-                    clicked={this._deletePersonHandler}
-                    changed={this._nameChangeHandler}
+                    clicked={this._DeletePersonHandler}
+                    changed={this._NameChangeHandler}
                 />
             );
         }
@@ -77,7 +77,7 @@ class App extends Component {
                 <Cockpit
                     showPerson={this.state.showPersons}
                     persons={this.state.persons}
-                    clicked={this._togglePersonHandler}
+                    clicked={this._TogglePersonHandler}
                 />
                 {persons}
             </div>
