@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import classes from "./App.module.css";
-import Person from "../components/Persons/Person/Person";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 
 class App extends Component {
     state = {
@@ -54,63 +55,38 @@ class App extends Component {
     _deletePersonHandler = personIndex => {
         // const persons = this.state.persons.slice();
         const persons = [...this.state.persons];
-        persons.splice(persons, 1);
+        persons.splice(personIndex, 1);
         this.setState({ persons: persons });
     };
 
     render() {
         let persons = null;
-        let btnClass = "";
 
         if (this.state.showPersons) {
             persons = (
-                <div>
-                    {this.state.persons.map((person, index) => {
-                        return (
-                            <Person
-                                click={() => this._deletePersonHandler(index)}
-                                name={person.name}
-                                age={person.age}
-                                key={person.id}
-                                changed={event =>
-                                    this._nameChangeHandler(event, person.id)
-                                }
-                            />
-                        );
-                    })}
-                </div>
+                <Persons
+                    persons={this.state.persons}
+                    clicked={this._deletePersonHandler}
+                    changed={this._nameChangeHandler}
+                />
             );
-
-            btnClass = classes.Red;
-        }
-
-        const assignedClasses = [];
-        if (this.state.persons.length <= 2) {
-            assignedClasses.push(classes.red); // assignedClasses = ["red"]
-        }
-        if (this.state.persons.length <= 1) {
-            assignedClasses.push(classes.bold); // assignedClasses = ["red", "bold"]
         }
 
         return (
             <div className={classes.App}>
-                <h1>Hi, I'm a React App</h1>
-                <p className={assignedClasses.join(" ")}>
-                    This is really working!
-                </p>
-                <button
-                    className={btnClass}
-                    onClick={this._togglePersonHandler}
-                >
-                    Toggle Persons
-                </button>
+                <Cockpit
+                    showPerson={this.state.showPersons}
+                    persons={this.state.persons}
+                    clicked={this._togglePersonHandler}
+                />
                 {persons}
             </div>
         );
-        // ---   IMPORTANT NOTE   ---
-        // () => inefficient way to call function handler
-        // .bind(this, arg) is an efficient way to call function
     }
 }
 
 export default App;
+
+// ---   IMPORTANT NOTE   ---
+// () => inefficient way to call function handler
+// .bind(this, arg) is an efficient way to call function
