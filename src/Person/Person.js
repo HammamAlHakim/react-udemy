@@ -1,8 +1,9 @@
 import React from "react";
+import Radium from "radium";
 
 import "./Person.css";
 
-export default function Person(props) {
+const Person = props => {
     return (
         <div className="Person">
             <p onClick={props.click}>
@@ -12,4 +13,6 @@ export default function Person(props) {
             <input type="text" onChange={props.changed} value={props.name} />
         </div>
     );
-}
+};
+
+export default Radium(Person);
