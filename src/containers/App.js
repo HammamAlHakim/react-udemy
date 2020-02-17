@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import classes from "./App.module.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
-import WithClass from "../hoc/WithClass";
+import withClass from "../hoc/withClass";
+import Auxiliary from "../hoc/Auxiliary";
 
 class App extends Component {
     constructor(props) {
@@ -103,7 +104,7 @@ class App extends Component {
         }
 
         return (
-            <WithClass classes={classes.App}>
+            <Auxiliary>
                 <button
                     onClick={() => {
                         this.setState({ showCockpit: !this.state.showCockpit });
@@ -120,12 +121,12 @@ class App extends Component {
                     />
                 ) : null}
                 {persons}
-            </WithClass>
+            </Auxiliary>
         );
     }
 }
 
-export default App;
+export default withClass(App, classes.App);
 
 // ---   IMPORTANT NOTE   ---
 // () => inefficient way to call function handler
